@@ -8,4 +8,6 @@
     <string name="rejestracja">Rejestracja</string>
     <string name="Name">Imię</string>
     <string name="Surname">Nazwisko</string>
+    <string name="LoginNow">Zaloguj się!</string>
+    <string name="RegisterNow">Zarejestruj się!</string>
 </resources>
