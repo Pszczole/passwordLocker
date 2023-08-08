@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">passwordLocker</string>
+    <string name="login">Zaloguj się</string>
+    <string name="loginButton">Login</string>
+    <string name="password">Hasło</string>
+    <string name="email">Email</string>
+    <string name="register">Zarejestruj się</string>
+    <string name="rejestracja">Rejestracja</string>
+    <string name="Name">Imię</string>
+    <string name="Surname">Nazwisko</string>
+</resources>

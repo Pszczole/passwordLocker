@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "1000750808222",
+    "project_id": "passwordlocker-a0c9f",
+    "storage_bucket": "passwordlocker-a0c9f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1000750808222:android:395e47a560728c476a8f8f",
+        "android_client_info": {
+          "package_name": "com.example.labfirebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1000750808222-1ts3ji58dcg7i9umrlueq87r76ln4oup.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDUrxYRTz-BSxLuzCwNk2LnzPo-2O9BHA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1000750808222-1ts3ji58dcg7i9umrlueq87r76ln4oup.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1000750808222:android:0c8c91567d31a5336a8f8f",
+        "android_client_info": {
+          "package_name": "com.example.passwordlocker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1000750808222-1ts3ji58dcg7i9umrlueq87r76ln4oup.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDUrxYRTz-BSxLuzCwNk2LnzPo-2O9BHA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1000750808222-1ts3ji58dcg7i9umrlueq87r76ln4oup.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
