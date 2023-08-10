@@ -36,6 +36,7 @@ class Login() : AppCompatActivity() {
         progressBar = findViewById(R.id.progressBar)
         registerNow = findViewById(R.id.registerNow)
 
+
         //Przejście do logowania po naciśnięciu textView Zarejestruj sie
         registerNow.setOnClickListener{
             val intent = Intent(applicationContext, Register::class.java)
@@ -44,8 +45,8 @@ class Login() : AppCompatActivity() {
         }
 
         buttonLogin.setOnClickListener{
-                var email = editTextEmail.editableText.toString()
-                var password = editTextPassword.editableText.toString()
+                val email = editTextEmail.editableText.toString()
+                val password = editTextPassword.editableText.toString()
 
                 //Ustawienie progressBara w trakcie
                 progressBar.visibility = View.VISIBLE
@@ -57,11 +58,16 @@ class Login() : AppCompatActivity() {
                     return@setOnClickListener
                 }
 
+                //Logowanie się do firebase
                 auth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this) { task ->
                         progressBar.visibility = View.GONE
                         if (task.isSuccessful) {
                             functionService.showToast(this, "Logowanie powiodło się!")
+                            //Przejscię do main activity
+                            val intent = Intent(applicationContext, MainActivity::class.java)
+                            startActivity(intent)
+                            finish()
                             val user = auth.currentUser
                         } else {
                             functionService.showToast(this,"Logowanie nie powiodło się!")
@@ -69,5 +75,15 @@ class Login() : AppCompatActivity() {
                     }
         }
 
+    }
+    override fun onStart() {
+        super.onStart()
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
+            //Przejscię do main activity
+            val intent = Intent(applicationContext, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 }

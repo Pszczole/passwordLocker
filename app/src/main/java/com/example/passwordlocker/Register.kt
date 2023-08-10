@@ -30,6 +30,7 @@ class Register() : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var progressBar: ProgressBar
     private lateinit var loginNow: TextView
+    private lateinit var editTextPin: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +45,7 @@ class Register() : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         progressBar = findViewById(R.id.progressBar)
         loginNow = findViewById(R.id.loginNow)
+        editTextPin = findViewById(R.id.pin)
 
         //Przejście do rejestracji po naciśnięciu textView zaloguj się
         loginNow.setOnClickListener{
@@ -52,20 +54,22 @@ class Register() : AppCompatActivity() {
             finish()
         }
 
-//        Utworzenie Listener, który włącza się przy kliknięciu i sprawdza
-//         czy dane są puste czy nie
+        //Utworzenie Listener, który włącza się przy kliknięciu i sprawdza
+        //czy dane są puste czy nie
         buttonReg.setOnClickListener {
-                var email = editTextEmail.editableText.toString()
-                var password = editTextPassword.editableText.toString()
-                var name = editTextName.editableText.toString()
-                var surname = editTextSurName.editableText.toString()
+                val email = editTextEmail.editableText.toString()
+                val password = editTextPassword.editableText.toString()
+                val name = editTextName.editableText.toString()
+                val surname = editTextSurName.editableText.toString()
+                val pin = editTextPin.editableText.toString()
 
                 //Ustawienie progressBara w trakcie
                 progressBar.visibility = View.VISIBLE
 
                 //Sprawdzenie czy email albo hasło są puste
                 if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password) ||
-                        TextUtils.isEmpty(name) || TextUtils.isEmpty(surname)) {
+                        TextUtils.isEmpty(name) || TextUtils.isEmpty(surname) ||
+                        TextUtils.isEmpty(pin)) {
                     functionService.showToast(this,"Wszystkie pola muszą być uzupełnione")
                     progressBar.visibility = View.GONE
                     return@setOnClickListener
@@ -77,6 +81,9 @@ class Register() : AppCompatActivity() {
                         progressBar.visibility = View.GONE
                         if (task.isSuccessful) {
                             functionService.showToast(this,"Rejestracja powiodła się!")
+                            val intent = Intent(applicationContext, Login::class.java)
+                            startActivity(intent)
+                            finish()
                         } else {
                             functionService.showToast(this,"Rejestracja nie powiodła się!")
                         }
@@ -84,12 +91,14 @@ class Register() : AppCompatActivity() {
         }
     }
 
-    //Sprawdzenie czy użytkownik jest już aktualnei zalogowany
-    public override fun onStart() {
+    override fun onStart() {
         super.onStart()
         val currentUser = auth.currentUser
         if (currentUser != null) {
-            // TODO sprawdzenie funckji reload(), żeby przeładować stronę kiedy żytkownik będzie zalogowany
+            //Przejscię do main activity
+            val intent = Intent(applicationContext, MainActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 }

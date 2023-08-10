@@ -10,4 +10,6 @@
     <string name="Surname">Nazwisko</string>
     <string name="LoginNow">Zaloguj się!</string>
     <string name="RegisterNow">Zarejestruj się!</string>
+    <string name="pin">Pin</string>
+    <string name="wyloguj">Wyloguj!</string>
 </resources>
