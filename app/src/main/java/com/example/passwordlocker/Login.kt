@@ -37,8 +37,10 @@ class Login() : AppCompatActivity() {
 
         //Przejście do logowania po naciśnięciu textView Zarejestruj sie
         registerNow.setOnClickListener{
-            val intent = Intent(applicationContext, Register::class.java)
-            startActivity(intent)
+            startActivity(MainActivity.functionService.createIntent(
+                applicationContext,
+                Register::class.java)
+            )
             finish()
         }
 
@@ -63,8 +65,10 @@ class Login() : AppCompatActivity() {
                         if (task.isSuccessful) {
                             functionService.showToast(this, "Logowanie powiodło się!")
                             //Przejscię do main activity
-                            val intent = Intent(applicationContext, MainActivity::class.java)
-                            startActivity(intent)
+                            startActivity(MainActivity.functionService.createIntent(
+                                applicationContext,
+                                MainActivity::class.java)
+                            )
                             finish()
                             val user = auth.currentUser
                         } else {
@@ -79,9 +83,10 @@ class Login() : AppCompatActivity() {
         val currentUser = auth.currentUser
         if (currentUser != null) {
             //Przejscię do main activity
-            val intent = Intent(applicationContext, MainActivity::class.java)
-            startActivity(intent)
-            finish()
+            startActivity(MainActivity.functionService.createIntent(
+                applicationContext,
+                MainActivity::class.java)
+            )
         }
     }
 }

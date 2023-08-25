@@ -1,5 +1,6 @@
 package com.example.passwordlocker
 
+import android.content.ContextWrapper
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -21,9 +22,25 @@ class MainActivity : AppCompatActivity() {
 
         //Po naciśnięciu guzika przechodzimy do passwordDetails
         addPassword.setOnClickListener {
-            val intent = Intent(applicationContext, PasswordDetails::class.java )
-            startActivity(intent)
-            finish()
+            startActivity(functionService.createIntent(applicationContext,PasswordDetails::class.java))
         }
+    }
+
+    //Wylogowywanie z aplikacji podczas wyłączenia i wznowwienia
+    override fun onDestroy() {
+        super.onDestroy()
+        PasswordDetails.functionService.signOut()
+        startActivity(functionService.createIntent(
+            applicationContext,
+            Login::class.java)
+        )
+    }
+    override fun onRestart() {
+        super.onRestart()
+        PasswordDetails.functionService.signOut()
+        startActivity(functionService.createIntent(
+            applicationContext,
+            Login::class.java)
+        )
     }
 }

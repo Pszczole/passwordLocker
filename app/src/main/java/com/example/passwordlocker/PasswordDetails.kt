@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.widget.EditText
 import android.widget.ImageButton
 import com.example.passwordlocker.implementation.FunctionServiceImpl
@@ -21,7 +22,6 @@ class PasswordDetails : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_password_details)
-
         title = findViewById(R.id.passwordTitle)
         password = findViewById(R.id.passwordDetail)
         savePassword = findViewById(R.id.savePasswordButton)
@@ -40,5 +40,23 @@ class PasswordDetails : AppCompatActivity() {
         }
         //Hashed password
         BCrypt.hashpw(password, BCrypt.gensalt())
+    }
+
+    //Wylogowywanie z aplikacji podczas wyłączenia i wznowwienia
+    override fun onDestroy() {
+        super.onDestroy()
+        functionService.signOut()
+        startActivity(MainActivity.functionService.createIntent(
+            applicationContext,
+            Login::class.java)
+        )
+    }
+    override fun onRestart() {
+        super.onRestart()
+        functionService.signOut()
+        startActivity(MainActivity.functionService.createIntent(
+            applicationContext,
+            Login::class.java)
+        )
     }
 }

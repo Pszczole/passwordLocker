@@ -40,8 +40,10 @@ class Register() : AppCompatActivity() {
 
         //Przejście do rejestracji po naciśnięciu textView zaloguj się
         loginNow.setOnClickListener{
-            val intent = Intent(applicationContext, Login::class.java )
-            startActivity(intent)
+            startActivity(MainActivity.functionService.createIntent(
+                applicationContext,
+                MainActivity::class.java)
+            )
             finish()
         }
 
@@ -67,8 +69,10 @@ class Register() : AppCompatActivity() {
                         progressBar.visibility = View.GONE
                         if (task.isSuccessful) {
                             functionService.showToast(this,"Rejestracja powiodła się!")
-                            val intent = Intent(applicationContext, Login::class.java)
-                            startActivity(intent)
+                            startActivity(MainActivity.functionService.createIntent(
+                                applicationContext,
+                                Login::class.java)
+                            )
                             finish()
                         } else {
                             functionService.showToast(this,"Rejestracja nie powiodła się!")
@@ -77,13 +81,17 @@ class Register() : AppCompatActivity() {
         }
     }
 
+    //Kiedy użytkownik jest zalogowany to automatycznie przenosi go do
+    // main activity
     override fun onStart() {
         super.onStart()
         val currentUser = auth.currentUser
         if (currentUser != null) {
             //Przejscię do main activity
-            val intent = Intent(applicationContext, MainActivity::class.java)
-            startActivity(intent)
+            startActivity(MainActivity.functionService.createIntent(
+                applicationContext,
+                MainActivity::class.java)
+            )
             finish()
         }
     }

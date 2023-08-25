@@ -1,6 +1,8 @@
 package com.example.passwordlocker.implementation
 
 import android.content.Context
+import android.content.ContextWrapper
+import android.content.Intent
 import android.widget.Toast
 import com.example.passwordlocker.interfaces.FunctionService
 import com.google.firebase.auth.FirebaseAuth
@@ -18,6 +20,9 @@ open class FunctionServiceImpl: FunctionService {
     //Check with debugger
     override fun passwordValidation(password: String, hashedPassword: String): Boolean {
         return BCrypt.checkpw(password, hashedPassword)
+    }
+    override fun createIntent(context: Context, kotlinActivity: Class<*>): Intent {
+        return Intent(context, kotlinActivity)
     }
 
 
