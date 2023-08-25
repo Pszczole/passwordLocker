@@ -1,22 +1,20 @@
 package com.example.passwordlocker
 
-import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
-import com.example.passwordlocker.implementation.functionServiceImpl
+import androidx.appcompat.app.AppCompatActivity
+import com.example.passwordlocker.implementation.FunctionServiceImpl
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 
 class Login() : AppCompatActivity() {
     companion object{
-        val functionService: functionServiceImpl = functionServiceImpl()
+        val functionService: FunctionServiceImpl = FunctionServiceImpl()
     }
 
     private lateinit var editTextEmail: TextInputEditText

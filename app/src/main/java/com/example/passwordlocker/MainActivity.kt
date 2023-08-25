@@ -1,37 +1,29 @@
 package com.example.passwordlocker
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ProgressBar
-import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import com.example.passwordlocker.implementation.FunctionServiceImpl
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 
 class MainActivity : AppCompatActivity() {
-
+    companion object{
+        val functionService: FunctionServiceImpl = FunctionServiceImpl()
+    }
     private lateinit var auth: FirebaseAuth
-    private lateinit var button: Button
-    private lateinit var textView: TextView
-    private lateinit var user: FirebaseUser
+    private lateinit var addPassword: FloatingActionButton
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         auth = FirebaseAuth.getInstance()
-        button = findViewById(R.id.logout)
-        textView = findViewById(R.id.user_details)
-        user = auth.currentUser!!
-        // Ustawienie text na email Usera
-        textView.setText(user.email)
+        addPassword = findViewById(R.id.addPasswordButton)
 
-        button.setOnClickListener{
-            FirebaseAuth.getInstance().signOut()
-            val intent = Intent(applicationContext, Login::class.java)
+        //Po naciśnięciu guzika przechodzimy do passwordDetails
+        addPassword.setOnClickListener {
+            val intent = Intent(applicationContext, PasswordDetails::class.java )
             startActivity(intent)
             finish()
         }
-
     }
 }
