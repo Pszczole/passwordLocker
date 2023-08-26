@@ -8,7 +8,12 @@ import android.util.Log
 import android.widget.EditText
 import android.widget.ImageButton
 import com.example.passwordlocker.implementation.FunctionServiceImpl
+import com.google.firebase.firestore.DocumentReference
 import org.mindrot.jbcrypt.BCrypt;
+import java.sql.Timestamp
+import java.time.LocalDateTime
+import java.time.ZoneId
+
 class PasswordDetails : AppCompatActivity() {
 
     companion object{
@@ -39,7 +44,9 @@ class PasswordDetails : AppCompatActivity() {
             return
         }
         //Hashed password
-        BCrypt.hashpw(password, BCrypt.gensalt())
+        val fullPassword = Password(title, BCrypt.hashpw(password, BCrypt.gensalt()), LocalDateTime.now(ZoneId.systemDefault()))
+        //Saving data to firebase
+        savePasswordToFirebase(fullPassword)
     }
 
     //Wylogowywanie z aplikacji podczas wyłączenia i wznowwienia
@@ -59,4 +66,24 @@ class PasswordDetails : AppCompatActivity() {
             Login::class.java)
         )
     }
+
+    //Zapisywanie danych do bazy danych (tytułu i hasła)
+    private fun savePasswordToFirebase(fullPassword: Password) {
+        val documentReference: DocumentReference
+        documentReference = functionService.getCollectionReference().document()
+
+        documentReference.set(fullPassword).addOnCompleteListener {
+            if(it.isSuccessful){
+                functionService.showToast(this,"Password added successfully!")
+                startActivity(MainActivity.functionService.createIntent(
+                    applicationContext,
+                    MainActivity::class.java)
+                )
+            }else{
+                functionService.showToast(this,"Something went wrong!")
+            }
+        }
+    }
 }
+
+data class Password(val title: String, val password: String, val localDateTime: LocalDateTime)

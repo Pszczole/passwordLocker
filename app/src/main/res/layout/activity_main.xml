@@ -4,7 +4,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
+    android:background="@color/black"
     tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/titleLayout">
+
+        <!--    Text twoje hasłą -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/pageTitle"
+            android:text="Twoje hasła"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"/>
+
+        <!--   Guzik menu -->
+        <ImageButton
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:id="@+id/menuButton"
+            android:src="@drawable/baseline_menu_24"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true">
+        </ImageButton>
+    </RelativeLayout>
+
+    <!--    Recycler view - czyli wyświeltanie z bazy wszystkich naszych haseł -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recyclerView"
+        android:layout_below="@+id/titleLayout" />
+
 
     <!--    Guzik do formularza do dodawania hasła -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton

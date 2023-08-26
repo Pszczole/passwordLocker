@@ -95,4 +95,6 @@ class Register() : AppCompatActivity() {
             finish()
         }
     }
+
+    //Dodać methody z cyklu życia aplikacji
 }
