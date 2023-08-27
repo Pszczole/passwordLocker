@@ -10,7 +10,7 @@ import android.widget.ImageButton
 import com.example.passwordlocker.implementation.FunctionServiceImpl
 import com.google.firebase.firestore.DocumentReference
 import org.mindrot.jbcrypt.BCrypt;
-import java.sql.Timestamp
+import com.google.firebase.Timestamp
 import java.time.LocalDateTime
 import java.time.ZoneId
 
@@ -44,7 +44,7 @@ class PasswordDetails : AppCompatActivity() {
             return
         }
         //Hashed password
-        val fullPassword = Password(title, BCrypt.hashpw(password, BCrypt.gensalt()), LocalDateTime.now(ZoneId.systemDefault()))
+        val fullPassword = Password(title, BCrypt.hashpw(password, BCrypt.gensalt()), Timestamp.now())
         //Saving data to firebase
         savePasswordToFirebase(fullPassword)
     }
@@ -85,5 +85,8 @@ class PasswordDetails : AppCompatActivity() {
         }
     }
 }
-
-data class Password(val title: String, val password: String, val localDateTime: LocalDateTime)
+data class Password(
+    val title: String = "",
+    val password: String = "",
+    val timestamp: Timestamp = Timestamp.now()
+)

@@ -1,14 +1,16 @@
 package com.example.passwordlocker
 
-import android.content.ContextWrapper
-import android.content.Intent
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.passwordlocker.implementation.FunctionServiceImpl
+import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.Query
 
 class MainActivity : AppCompatActivity() {
     companion object{
@@ -19,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var menuButton: ImageButton
     private lateinit var auth: FirebaseAuth
     private lateinit var addPassword: FloatingActionButton
+    private lateinit var passwordAdapter: PasswordAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -48,7 +51,30 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView(){
+        val query = functionService.getCollectionReference()
+            .orderBy("timestamp", Query.Direction.DESCENDING)
+        val options = FirestoreRecyclerOptions.Builder<Password>()
+            .setQuery(query, Password::class.java)
+            .build()
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        passwordAdapter = PasswordAdapter(options,this)
+        recyclerView.adapter = passwordAdapter
+    }
 
+    override fun onStart() {
+        super.onStart()
+        passwordAdapter.startListening()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        passwordAdapter.stopListening()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    override fun onResume() {
+        super.onResume()
+        passwordAdapter.notifyDataSetChanged()
     }
 
     //Wylogowywanie z aplikacji podczas wyłączenia i wznowwienia

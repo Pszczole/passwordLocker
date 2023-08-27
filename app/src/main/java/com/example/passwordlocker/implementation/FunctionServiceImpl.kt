@@ -2,18 +2,16 @@ package com.example.passwordlocker.implementation
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.ContextWrapper
 import android.content.Intent
 import android.widget.Toast
-import com.example.passwordlocker.Password
-import com.example.passwordlocker.PasswordDetails
 import com.example.passwordlocker.interfaces.FunctionService
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import org.mindrot.jbcrypt.BCrypt
+import java.text.SimpleDateFormat
+import java.util.*
 
 open class FunctionServiceImpl: FunctionService {
     override fun showToast(context: Context,message: String) {
@@ -46,5 +44,10 @@ open class FunctionServiceImpl: FunctionService {
                 .collection("usersPasswords")
     }
 
-
+    //Konwertowanie daty w stringa
+    override fun timestampToString(timestamp: Timestamp): String {
+        val date = timestamp.toDate()
+        val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        return formatter.format(date)
+    }
 }
