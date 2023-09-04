@@ -14,17 +14,18 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 open class FunctionServiceImpl: FunctionService {
+
+    //Funkcja do wyświetlania powiadomień typu Toast dla użyytkownika
     override fun showToast(context: Context,message: String) {
-        //Funkcja do wyświetlania powiadomień typu Toast dla użyytkownika
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
-    // Funkcja do wylogowywania
+    // Funkcja do wylogowywania się z Firebase
     override fun signOut() {
         FirebaseAuth.getInstance().signOut()
     }
 
-    //Check with debugger
+    //Validacja hasła używana podczas haszowania
     override fun passwordValidation(password: String, hashedPassword: String): Boolean {
         return BCrypt.checkpw(password, hashedPassword)
     }
@@ -34,7 +35,7 @@ open class FunctionServiceImpl: FunctionService {
         return Intent(context, kotlinActivity)
     }
 
-    //Metoda odwołuje się do kolkecji haseł podanej dla unikatowego użytkownika
+    //Metoda odwołuje się do kolekcji haseł podanej dla unikatowego użytkownika
     //Z kolekcji użytkowników wybieramy konkretnego usera, i następnie wybieramy jego hasła
     @SuppressLint("SuspiciousIndentation")
     override fun getCollectionReference(): CollectionReference {
@@ -44,7 +45,7 @@ open class FunctionServiceImpl: FunctionService {
                 .collection("usersPasswords")
     }
 
-    //Konwertowanie daty w stringa
+    //Konwertowanie daty w stringa, służy do zapisu do bazy danych
     override fun timestampToString(timestamp: Timestamp): String {
         val date = timestamp.toDate()
         val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())

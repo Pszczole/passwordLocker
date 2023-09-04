@@ -36,6 +36,7 @@ class PasswordDetails : AppCompatActivity() {
         }
     }
 
+    //Metoda służąca do zapisu hasła do bazy i hashowania
     private fun savePassword(){
         val title = title.editableText.toString()
         val password = password.editableText.toString()

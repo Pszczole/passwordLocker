@@ -58,6 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <!--    Przycisk służący do przejścia do rejestracji-->
     <TextView
         android:id="@+id/registerNow"
         android:textSize="20sp"

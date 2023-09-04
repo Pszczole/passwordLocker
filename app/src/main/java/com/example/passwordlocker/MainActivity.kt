@@ -2,7 +2,11 @@ package com.example.passwordlocker
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.widget.ImageButton
+import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +22,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var menuButton: ImageButton
     private lateinit var auth: FirebaseAuth
     private lateinit var addPassword: FloatingActionButton
     private lateinit var passwordAdapter: PasswordAdapter
@@ -28,7 +31,6 @@ class MainActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         addPassword = findViewById(R.id.addPasswordButton)
         recyclerView = findViewById(R.id.recyclerView)
-        menuButton = findViewById(R.id.menuButton)
 
         //Po naciśnięciu guzika przechodzimy do passwordDetails
         addPassword.setOnClickListener {
@@ -38,16 +40,7 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
-        //Po naciśniecu guzika menu
-        menuButton.setOnClickListener {
-            showLogoutMenu()
-        }
-
         setupRecyclerView()
-    }
-
-    private fun showLogoutMenu(){
-
     }
 
     private fun setupRecyclerView(){
@@ -59,6 +52,28 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         passwordAdapter = PasswordAdapter(options,this)
         recyclerView.adapter = passwordAdapter
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        //create a menu with menuInflater and R.menu.menu resource
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.popup_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        //Handle the selection of menu items
+        return when(item.itemId){
+            R.id.popupMenuItem -> {
+                functionService.signOut()
+                startActivity(functionService.createIntent(
+                    this@MainActivity,
+                    Login::class.java
+                ))
+                true
+            }
+            else -> {super.onOptionsItemSelected(item)}
+        }
     }
 
     override fun onStart() {

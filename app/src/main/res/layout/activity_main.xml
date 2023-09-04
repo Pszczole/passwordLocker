@@ -22,15 +22,6 @@
             android:textStyle="bold"
             android:textColor="@color/white"/>
 
-        <!--   Guzik menu -->
-        <ImageButton
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:id="@+id/menuButton"
-            android:src="@drawable/baseline_menu_24"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true">
-        </ImageButton>
     </RelativeLayout>
 
     <!--    Recycler view - czyli wyświeltanie z bazy wszystkich naszych haseł -->

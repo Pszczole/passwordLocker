@@ -42,7 +42,7 @@ class Register() : AppCompatActivity() {
         loginNow.setOnClickListener{
             startActivity(MainActivity.functionService.createIntent(
                 applicationContext,
-                MainActivity::class.java)
+                Login::class.java)
             )
             finish()
         }
@@ -63,12 +63,14 @@ class Register() : AppCompatActivity() {
                     return@setOnClickListener
                 }
 
-                //Skrypt z strony firebase służący do tworzenia użytkownikó
+                //Skrypt z strony firebase służący do tworzenia użytkowników
                 auth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this) { task ->
                         progressBar.visibility = View.GONE
                         if (task.isSuccessful) {
                             functionService.showToast(this,"Rejestracja powiodła się!")
+                            // Po rejestracji od razu użytkownik jest zalogowany dlatego
+                            //przekierowuje go do MainActivity ze względu na metod onStart w Login
                             startActivity(MainActivity.functionService.createIntent(
                                 applicationContext,
                                 Login::class.java)

@@ -36,7 +36,7 @@ class Login() : AppCompatActivity() {
 
 
         //Przejście do logowania po naciśnięciu textView Zarejestruj sie
-        registerNow.setOnClickListener{
+        registerNow.setOnClickListener {
             startActivity(MainActivity.functionService.createIntent(
                 applicationContext,
                 Register::class.java)
@@ -44,7 +44,7 @@ class Login() : AppCompatActivity() {
             finish()
         }
 
-        buttonLogin.setOnClickListener{
+        buttonLogin.setOnClickListener {
                 val email = editTextEmail.editableText.toString()
                 val password = editTextPassword.editableText.toString()
 
@@ -70,7 +70,6 @@ class Login() : AppCompatActivity() {
                                 MainActivity::class.java)
                             )
                             finish()
-                            val user = auth.currentUser
                         } else {
                             functionService.showToast(this,"Logowanie nie powiodło się!")
                         }
